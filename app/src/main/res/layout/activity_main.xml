@@ -24,15 +24,6 @@
             app:logo_drawable="@mipmap/logo"
             android:layout_height="30dp"/>
 
-    <com.acorn.logoloader.test.TestViewGroup
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            app:testAAA="aaaaaa"
-            app:testBBBB="BBBBBBBBBBBBB"
-            android:background="#231232"/>
-
     <!--<com.acorn.logoloader.LogoLoaderView android:layout_width="100dp" android:id="@+id/logoLoaderView"-->
     <!--app:layout_constraintStart_toStartOf="parent"-->
     <!--app:layout_constraintBottom_toBottomOf="parent"-->

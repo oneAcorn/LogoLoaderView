@@ -1,8 +1,8 @@
 package com.acorn.logoloader
 
+import android.animation.ArgbEvaluator
 import android.animation.Keyframe
 import android.animation.PropertyValuesHolder
-import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
@@ -10,9 +10,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
+import com.acorn.logoloader.typeEvaluator.ColorEvaluator
+import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator
+import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator.LogoAnimEntry
 import com.acorn.logoloader.utils.getPositionByAngle
 
 
@@ -57,6 +57,8 @@ class LogoLoaderView : View {
     //高光矩形宽度
     private var highlightWidth = 0f
     private var duration: Long = 0
+
+    private var curColor = 0
 
     constructor(context: Context) : this(context, null)
 
@@ -143,6 +145,7 @@ class LogoLoaderView : View {
         if (!isRunning())
             return
         fun drawArc() {
+            arcPaint.color = curColor
             canvas!!.drawArc(arcBound, curAnimEntry.leftAngle, curAnimEntry.sweepAngle, false, arcPaint)
             canvas.drawArc(arcBound, curAnimEntry.rightAngle, curAnimEntry.sweepAngle, false, arcPaint)
         }
@@ -203,69 +206,62 @@ class LogoLoaderView : View {
                     keyframe4,
                     keyframe5,
                     keyframe6
+                ),
+                PropertyValuesHolder.ofObject(
+                    "arcColor",
+                    ArgbEvaluator(),
+                    Color.parseColor("#ff00ff00"),
+                    Color.parseColor("#ffff00ff")
                 )
-            )
-        logoAnim?.setEvaluator(object : TypeEvaluator<LogoAnimEntry> {
-            override fun evaluate(
-                fraction: Float,
-                startValue: LogoAnimEntry,
-                endValue: LogoAnimEntry
-            ): LogoAnimEntry {
-                fun average(f1: Float, f2: Float): Float {
-                    return f1 + ((f2 - f1) * fraction)
-                }
-                return LogoAnimEntry(
-                    average(startValue.leftDotAngle, endValue.leftDotAngle),
-                    average(startValue.rightDotAngle, endValue.rightDotAngle),
-                    average(startValue.leftAngle, endValue.leftAngle),
-                    average(startValue.rightAngle, endValue.rightAngle),
-                    average(startValue.sweepAngle, endValue.sweepAngle),
-                    average(startValue.logoScale, endValue.logoScale),
-                    average(startValue.highLightPercent, endValue.highLightPercent)
-                )
-            }
-
-        })
+            ).apply {
+                setEvaluator(LogoAnimEvaluator())
 //        logoAnim?.interpolator=LinearInterpolator()
-        logoAnim?.duration = duration
-        logoAnim?.repeatCount = ValueAnimator.INFINITE
+                duration = this@LogoLoaderView.duration
+                repeatCount = ValueAnimator.INFINITE
 //        logoAnim.repeatMode
-        val dotRadius: Float = radius / 2f
-        val originLeftDotCx: Float = cx - (radius / 2f)
-        val originLeftDotCy: Float = cy;
-        val originRightDotCx: Float = cx + (radius / 2f)
-        val originRightDotCy: Float = cy;
-        logoAnim?.addUpdateListener { animation ->
-            curAnimEntry = animation.getAnimatedValue("Logo") as LogoAnimEntry
-            val leftPoint: PointF =
-                getPositionByAngle(curAnimEntry.leftDotAngle, dotRadius, originLeftDotCx, originLeftDotCy)
-            curAnimEntry.leftDotCx = leftPoint.x
-            curAnimEntry.leftDotCy = leftPoint.y
-            val rightPoint: PointF =
-                getPositionByAngle(curAnimEntry.rightDotAngle, dotRadius, originRightDotCx, originRightDotCy)
-            curAnimEntry.rightDotCx = rightPoint.x
-            curAnimEntry.rightDotCy = rightPoint.y
+                val dotRadius: Float = radius / 2f
+                val originLeftDotCx: Float = cx - (radius / 2f)
+                val originLeftDotCy: Float = cy;
+                val originRightDotCx: Float = cx + (radius / 2f)
+                val originRightDotCy: Float = cy;
+                addUpdateListener { animation ->
+                    curAnimEntry = (animation.getAnimatedValue("Logo") as LogoAnimEntry).apply {
+                        val leftPoint: PointF =
+                            getPositionByAngle(curAnimEntry.leftDotAngle, dotRadius, originLeftDotCx, originLeftDotCy)
+                        leftDotCx = leftPoint.x
+                        leftDotCy = leftPoint.y
+                        val rightPoint: PointF =
+                            getPositionByAngle(
+                                curAnimEntry.rightDotAngle,
+                                dotRadius,
+                                originRightDotCx,
+                                originRightDotCy
+                            )
+                        rightDotCx = rightPoint.x
+                        rightDotCy = rightPoint.y
 
-            //计算logo缩放
-            val scaleOffset = radius * curAnimEntry.logoScale
-            curAnimEntry.bitmapRect = RectF(cx - scaleOffset, cy - scaleOffset, cx + scaleOffset, cy + scaleOffset)
+                        //计算logo缩放
+                        val scaleOffset = radius * curAnimEntry.logoScale
+                        bitmapRect = RectF(cx - scaleOffset, cy - scaleOffset, cx + scaleOffset, cy + scaleOffset)
 
-            //计算高光矩形
-            val highlightPassLength = radius * 2f * curAnimEntry.highLightPercent
-            val angle = if (highlightPassLength < radius) 180f + highlightAngle else highlightAngle
-            val distance = Math.abs(highlightPassLength - radius)
-            curAnimEntry.highlightCenter = getPositionByAngle(angle, distance, cx, cy)
-            curAnimEntry.highlightRect = RectF(
-                curAnimEntry.highlightCenter.x - highlightWidth / 2f,
-                curAnimEntry.highlightCenter.y - highlightHeight / 2f,
-                curAnimEntry.highlightCenter.x + highlightWidth / 2f,
-                curAnimEntry.highlightCenter.y + highlightHeight / 2f
-            )
+                        //计算高光矩形
+                        val highlightPassLength = radius * 2f * curAnimEntry.highLightPercent
+                        val angle = if (highlightPassLength < radius) 180f + highlightAngle else highlightAngle
+                        val distance = Math.abs(highlightPassLength - radius)
+                        highlightCenter = getPositionByAngle(angle, distance, cx, cy)
+                        highlightRect = RectF(
+                            curAnimEntry.highlightCenter.x - highlightWidth / 2f,
+                            curAnimEntry.highlightCenter.y - highlightHeight / 2f,
+                            curAnimEntry.highlightCenter.x + highlightWidth / 2f,
+                            curAnimEntry.highlightCenter.y + highlightHeight / 2f
+                        )
+                    }
+                    curFraction = animation.animatedFraction
 
-            curFraction = animation.animatedFraction
-            invalidate()
-        }
-
+                    curColor = animation.getAnimatedValue("arcColor") as Int
+                    invalidate()
+                }
+            }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -299,26 +295,4 @@ class LogoLoaderView : View {
     }
 
     fun isRunning(): Boolean = logoAnim?.isRunning ?: false
-
-    private data class LogoAnimEntry(
-        var leftDotAngle: Float,
-        var rightDotAngle: Float,
-        var leftAngle: Float,
-        var rightAngle: Float,
-        var sweepAngle: Float,
-        var logoScale: Float,
-        var highLightPercent: Float
-    ) {
-        //起始在左边的点的圆心
-        var leftDotCx: Float = 0f
-        var leftDotCy: Float = 0f
-        //起始在右边的点的圆心
-        var rightDotCx: Float = 0f
-        var rightDotCy: Float = 0f
-        //logo图片的绘制范围
-        var bitmapRect = RectF(0f, 0f, 0f, 0f)
-        var highlightCenter = PointF(0f, 0f)
-        //高光矩形
-        var highlightRect = RectF(0f, 0f, 0f, 0f)
-    }
 }
