@@ -1,0 +1,153 @@
+<layer-list
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Drop Shadow Stack-->
+    <item
+            android:gravity="bottom"
+            android:left="13dp"
+            android:right="13dp">
+        <shape>
+            <size android:height="13dp"/>
+            <!--<padding android:bottom="13dp"/>-->
+            <gradient
+                    android:angle="-90"
+                    android:endColor="@android:color/transparent"
+                    android:startColor="#15000000"/>
+        </shape>
+    </item>
+
+    <item
+            android:gravity="top"
+            android:left="13dp"
+            android:right="13dp">
+        <shape>
+            <size android:height="13dp"/>
+            <!--<padding android:top="13dp"/>-->
+            <gradient
+                    android:angle="-90"
+                    android:endColor="#15000000"
+                    android:startColor="@android:color/transparent"/>
+        </shape>
+    </item>
+
+    <item
+            android:bottom="13dp"
+            android:gravity="left"
+            android:top="13dp">
+        <shape>
+            <size android:width="13dp"/>
+            <!--<padding android:left="13dp"/>-->
+            <gradient
+                    android:angle="180"
+                    android:endColor="@android:color/transparent"
+                    android:startColor="#15000000"/>
+        </shape>
+    </item>
+
+
+    <item
+            android:bottom="13dp"
+            android:gravity="right"
+            android:top="13dp">
+        <shape>
+            <size android:width="13dp"/>
+            <!--<padding android:right="13dp"/>-->
+            <gradient
+                    android:angle="180"
+                    android:endColor="#15000000"
+                    android:startColor="@android:color/transparent"/>
+        </shape>
+    </item>
+
+    <item
+            android:gravity="top|left">
+        <shape>
+            <size
+                    android:width="13dp"
+                    android:height="13dp"/>
+            <!--<padding-->
+            <!--android:left="10dp"-->
+            <!--android:top="10dp"/>-->
+            <gradient
+                    android:angle="90"
+                    android:centerX="1"
+                    android:centerY="1"
+                    android:endColor="@android:color/transparent"
+                    android:gradientRadius="13dp"
+                    android:startColor="#15000000"
+                    android:type="radial"/>
+        </shape>
+    </item>
+
+
+    <item
+            android:gravity="top|right">
+        <shape>
+            <size
+                    android:width="13dp"
+                    android:height="13dp"/>
+            <!--<padding-->
+            <!--android:right="10dp"-->
+            <!--android:top="10dp"/>-->
+            <gradient
+                    android:centerX="0"
+                    android:centerY="1"
+                    android:endColor="@android:color/transparent"
+                    android:gradientRadius="13dp"
+                    android:startColor="#15000000"
+                    android:type="radial"/>
+        </shape>
+    </item>
+
+    <item
+            android:gravity="bottom|right">
+        <shape>
+            <size
+                    android:width="13dp"
+                    android:height="13dp"/>
+            <!--<padding-->
+            <!--android:bottom="10dp"-->
+            <!--android:right="10dp"/>-->
+            <gradient
+                    android:angle="90"
+                    android:centerX="0"
+                    android:centerY="0"
+                    android:endColor="@android:color/transparent"
+                    android:gradientRadius="13dp"
+                    android:startColor="#15000000"
+                    android:type="radial"/>
+        </shape>
+    </item>
+
+    <item
+            android:gravity="bottom|left">
+        <shape>
+            <size
+                    android:width="13dp"
+                    android:height="13dp"/>
+            <!--<padding-->
+            <!--android:bottom="10dp"-->
+            <!--android:left="10dp"/>-->
+            <gradient
+                    android:angle="90"
+                    android:centerX="1"
+                    android:centerY="0"
+                    android:endColor="@android:color/transparent"
+                    android:gradientRadius="13dp"
+                    android:startColor="#15000000"
+                    android:type="radial"/>
+        </shape>
+    </item>
+
+    <!--Background-->
+    <item
+            android:bottom="10dp"
+            android:left="10dp"
+            android:right="10dp"
+            android:top="10dp">
+        <shape>
+            <solid android:color="#ffffff"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+</layer-list>

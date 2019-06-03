@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+    <com.acorn.logoloader.LogoLoaderView
+            android:layout_width="30dp"
+            android:id="@+id/logoLoaderView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loop_stroke_width="2dp"
+            app:dot_radius="1dp"
+            app:highlight_width="13dp"
+            app:highlight_height="2dp"
+            app:duration="1300"
+            app:logo_drawable="@mipmap/logo"
+            android:layout_height="30dp"/>
+
+    <com.acorn.logoloader.test.TestViewGroup
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:testAAA="aaaaaa"
+            app:testBBBB="BBBBBBBBBBBBB"
+            android:background="#231232"/>
+
+    <!--<com.acorn.logoloader.LogoLoaderView android:layout_width="100dp" android:id="@+id/logoLoaderView"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:highlight_width="40dp"-->
+    <!--app:highlight_height="5dp"-->
+    <!--app:duration="1000"-->
+    <!--app:logo_drawable="@mipmap/auzfbp"-->
+    <!--android:layout_height="100dp"/>-->
+</android.support.constraint.ConstraintLayout>

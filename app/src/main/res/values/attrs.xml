@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--logo加载动画-->
+    <declare-styleable name="LogoLoaderView">
+        <!--外面的圆环粗细-->
+        <attr name="loop_stroke_width" format="dimension"/>
+        <!--圆环颜色-->
+        <attr name="loop_color" format="color"/>
+        <!--2个圆点的半径-->
+        <attr name="dot_radius" format="dimension"/>
+        <!--2个圆点的颜色-->
+        <attr name="dot_color" format="color"/>
+        <!--logo图片-->
+        <attr name="logo_drawable" format="reference"/>
+        <!--高光矩形宽度-->
+        <attr name="highlight_width" format="dimension"/>
+        <!--高光矩形高度-->
+        <attr name="highlight_height" format="dimension"/>
+        <!--高光矩形颜色-->
+        <attr name="highlight_color" format="color"/>
+        <!--高光矩形角度-->
+        <attr name="highlight_angle" format="float"/>
+        <!--动画时长(毫秒)-->
+        <attr name="duration" format="integer"/>
+    </declare-styleable>
+</resources>

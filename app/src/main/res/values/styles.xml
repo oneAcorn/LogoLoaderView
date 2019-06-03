@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--logo加载动画View默认样式-->
+    <style name="LogoLoaderView">
+        <item name="loop_stroke_width">5dp</item>
+        <item name="loop_color">#F7F7F7</item>
+        <item name="dot_radius">3dp</item>
+        <item name="dot_color">#FF6E73</item>
+        <item name="highlight_color">#20FFFFFF</item>
+        <item name="highlight_angle">45</item>
+        <item name="duration">2000</item>
+    </style>
+</resources>
