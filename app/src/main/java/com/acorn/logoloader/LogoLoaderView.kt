@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
-import com.acorn.logoloader.typeEvaluator.ColorEvaluator
 import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator
 import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator.LogoAnimEntry
 import com.acorn.logoloader.utils.getPositionByAngle
