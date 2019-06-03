@@ -211,7 +211,8 @@ class LogoLoaderView : View {
                     "arcColor",
                     ArgbEvaluator(),
                     Color.parseColor("#ff00ff00"),
-                    Color.parseColor("#ffff00ff")
+                    Color.parseColor("#ffff00ff"),
+                    Color.parseColor("#ff0000ff")
                 )
             ).apply {
                 setEvaluator(LogoAnimEvaluator())
