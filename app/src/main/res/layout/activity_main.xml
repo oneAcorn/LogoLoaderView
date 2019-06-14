@@ -20,7 +20,7 @@
             app:dot_radius="1dp"
             app:highlight_width="13dp"
             app:highlight_height="2dp"
-            app:duration="2300"
+            app:duration="20000"
             app:logo_drawable="@mipmap/logo"
             android:layout_height="30dp"/>
 

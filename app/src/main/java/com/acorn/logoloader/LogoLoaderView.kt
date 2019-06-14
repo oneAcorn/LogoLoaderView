@@ -145,30 +145,36 @@ class LogoLoaderView : View {
             return
         fun drawArc() {
             arcPaint.color = curColor
-            canvas!!.drawArc(arcBound, curAnimEntry.leftAngle, curAnimEntry.sweepAngle, false, arcPaint)
-            canvas.drawArc(arcBound, curAnimEntry.rightAngle, curAnimEntry.sweepAngle, false, arcPaint)
+            canvas?.apply {
+                drawArc(arcBound, curAnimEntry.leftAngle, curAnimEntry.sweepAngle, false, arcPaint)
+                drawArc(arcBound, curAnimEntry.rightAngle, curAnimEntry.sweepAngle, false, arcPaint)
+            }
         }
 
         fun drawHighlight() {
-            canvas!!.save()
-            canvas.rotate(-highlightAngle, curAnimEntry.highlightCenter.x, curAnimEntry.highlightCenter.y)
-            canvas.drawRect(curAnimEntry.highlightRect, highlightPaint)
-            canvas.restore()
+            canvas?.apply {
+                save()
+                rotate(-highlightAngle, curAnimEntry.highlightCenter.x, curAnimEntry.highlightCenter.y)
+                drawRect(curAnimEntry.highlightRect, highlightPaint)
+                restore()
+            }
         }
 
-        canvas!!.drawCircle(cx, cy, radius, loopPaint)
+        canvas?.drawCircle(cx, cy, radius, loopPaint)
         if (null != logoBitmap)
-            canvas.drawBitmap(logoBitmap!!, null, curAnimEntry.bitmapRect, logoPaint)
+            canvas?.drawBitmap(logoBitmap!!, null, curAnimEntry.bitmapRect, logoPaint)
         when (curFraction) {
-            in node0..node1, in node5..node6 -> {
-                canvas.drawCircle(curAnimEntry.leftDotCx, curAnimEntry.leftDotCy, dotRadius, dotPaint)
-                canvas.drawCircle(curAnimEntry.rightDotCx, curAnimEntry.rightDotCy, dotRadius, dotPaint)
+            in node0..node1, in node5..node6 -> { //点移动到环,logo缩放
+                canvas?.apply {
+                    drawCircle(curAnimEntry.leftDotCx, curAnimEntry.leftDotCy, dotRadius, dotPaint)
+                    drawCircle(curAnimEntry.rightDotCx, curAnimEntry.rightDotCy, dotRadius, dotPaint)
+                }
             }
-            in node1..node2, in node4..node5 -> {
+            in node1..node2, in node4..node5 -> { //绘制环动画,高光
                 drawArc()
                 drawHighlight()
             }
-            in node2..node4 -> {
+            in node2..node4 -> { //绘制环动画
                 drawArc()
             }
         }
