@@ -16,14 +16,17 @@ import com.acorn.logoloader.utils.getPositionByAngle
 
 
 class LogoLoaderView : View {
-    private val dotPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
+    private val leftDotPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
+    private val rightDotPaint: Paint = Paint(leftDotPaint)
     private val loopPaint: Paint =
         Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
-    private val arcPaint: Paint =
+    private val leftArcPaint: Paint =
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             strokeCap = Paint.Cap.ROUND
         }
+    private val rightArcPaint: Paint =
+        Paint(leftArcPaint)
     private val logoPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val highlightPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
     //圆心
@@ -68,7 +71,8 @@ class LogoLoaderView : View {
             setLoopStrokeWidth(getDimension(R.styleable.LogoLoaderView_loop_stroke_width, 0f))
             setLoopColor(getColor(R.styleable.LogoLoaderView_loop_color, 0))
             setDotRadius(getDimension(R.styleable.LogoLoaderView_dot_radius, 0f))
-            setDotColor(getColor(R.styleable.LogoLoaderView_dot_color, 0))
+            setLeftDotColor(getColor(R.styleable.LogoLoaderView_left_dot_color, 0))
+            setRightDotColor(getColor(R.styleable.LogoLoaderView_right_dot_color, 0))
             setLogoDrawable(getDrawable(R.styleable.LogoLoaderView_logo_drawable))
             setHighlightWidth(getDimension(R.styleable.LogoLoaderView_highlight_width, 0f))
             setHighlightHeight(getDimension(R.styleable.LogoLoaderView_highlight_height, 0f))
@@ -91,13 +95,20 @@ class LogoLoaderView : View {
 
     fun setDotRadius(radius: Float) {
         dotRadius = radius
-        arcPaint.strokeWidth = dotRadius * 2f
+        leftArcPaint.strokeWidth = dotRadius * 2f
+        rightArcPaint.strokeWidth = dotRadius * 2f
         invalidate()
     }
 
-    fun setDotColor(color: Int) {
-        dotPaint.color = color
-        arcPaint.color = color
+    fun setLeftDotColor(color: Int) {
+        leftDotPaint.color = color
+        leftArcPaint.color = color
+        invalidate()
+    }
+
+    fun setRightDotColor(color: Int) {
+        rightDotPaint.color = color
+        rightArcPaint.color = color
         invalidate()
     }
 
@@ -144,10 +155,10 @@ class LogoLoaderView : View {
         if (!isRunning())
             return
         fun drawArc() {
-            arcPaint.color = curColor
+//            arcPaint.color = curColor
             canvas?.apply {
-                drawArc(arcBound, curAnimEntry.leftAngle, curAnimEntry.sweepAngle, false, arcPaint)
-                drawArc(arcBound, curAnimEntry.rightAngle, curAnimEntry.sweepAngle, false, arcPaint)
+                drawArc(arcBound, curAnimEntry.leftAngle, curAnimEntry.sweepAngle, false, leftArcPaint)
+                drawArc(arcBound, curAnimEntry.rightAngle, curAnimEntry.sweepAngle, false, rightArcPaint)
             }
         }
 
@@ -166,8 +177,8 @@ class LogoLoaderView : View {
         when (curFraction) {
             in node0..node1, in node5..node6 -> { //点移动到环,logo缩放
                 canvas?.apply {
-                    drawCircle(curAnimEntry.leftDotCx, curAnimEntry.leftDotCy, dotRadius, dotPaint)
-                    drawCircle(curAnimEntry.rightDotCx, curAnimEntry.rightDotCy, dotRadius, dotPaint)
+                    drawCircle(curAnimEntry.leftDotCx, curAnimEntry.leftDotCy, dotRadius, leftDotPaint)
+                    drawCircle(curAnimEntry.rightDotCx, curAnimEntry.rightDotCy, dotRadius, rightDotPaint)
                 }
             }
             in node1..node2, in node4..node5 -> { //绘制环动画,高光
@@ -194,11 +205,11 @@ class LogoLoaderView : View {
 
     private fun initAnim() {
         val keyframe0: Keyframe = Keyframe.ofObject(node0, LogoAnimEntry(0f, 180f, 0f, 0f, 0f, 0f, 0.2f))
-        val keyframe1: Keyframe = Keyframe.ofObject(node1, LogoAnimEntry(180f, 360f, 180f, 0f, 2f, 0.8f, 0.2f))
-        val keyframe2: Keyframe = Keyframe.ofObject(node2, LogoAnimEntry(180f, 360f, 210f, 30f, 120f, 0.8f, 0.8f))
-        val keyframe3: Keyframe = Keyframe.ofObject(node3, LogoAnimEntry(180f, 360f, 360f, 180f, 2f, 0.8f, 0.2f))
-        val keyframe4: Keyframe = Keyframe.ofObject(node4, LogoAnimEntry(180f, 360f, 390f, 210f, 120f, 0.8f, 0.2f))
-        val keyframe5: Keyframe = Keyframe.ofObject(node5, LogoAnimEntry(180f, 0f, 540f, 360f, 2f, 0.8f, 0.8f))
+        val keyframe1: Keyframe = Keyframe.ofObject(node1, LogoAnimEntry(180f, 360f, 180f, 0f, 2f, 0.7f, 0.2f))
+        val keyframe2: Keyframe = Keyframe.ofObject(node2, LogoAnimEntry(180f, 360f, 210f, 30f, 120f, 0.7f, 0.8f))
+        val keyframe3: Keyframe = Keyframe.ofObject(node3, LogoAnimEntry(180f, 360f, 360f, 180f, 2f, 0.7f, 0.2f))
+        val keyframe4: Keyframe = Keyframe.ofObject(node4, LogoAnimEntry(180f, 360f, 390f, 210f, 120f, 0.7f, 0.2f))
+        val keyframe5: Keyframe = Keyframe.ofObject(node5, LogoAnimEntry(180f, 0f, 540f, 360f, 2f, 0.7f, 0.8f))
         val keyframe6: Keyframe = Keyframe.ofObject(node6, LogoAnimEntry(360f, 180f, 0f, 0f, 0f, 0f, 0.2f))
         logoAnim =
             ValueAnimator.ofPropertyValuesHolder(

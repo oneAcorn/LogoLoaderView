@@ -8,21 +8,18 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-
     <com.acorn.logoloader.LogoLoaderView
-            android:layout_width="30dp"
-            android:id="@+id/logoLoaderView"
+            android:id="@+id/load_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loop_stroke_width="2dp"
-            app:dot_radius="1dp"
-            app:highlight_width="13dp"
-            app:highlight_height="2dp"
-            app:duration="20000"
-            app:logo_drawable="@mipmap/logo"
-            android:layout_height="30dp"/>
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:highlight_height="5dp"
+            app:highlight_width="12dp"
+            app:logo_drawable="@drawable/logo_circle"
+            />
 
     <!--<com.acorn.logoloader.LogoLoaderView android:layout_width="100dp" android:id="@+id/logoLoaderView"-->
     <!--app:layout_constraintStart_toStartOf="parent"-->

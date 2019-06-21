@@ -10,12 +10,13 @@
 
     <!--logo加载动画View默认样式-->
     <style name="LogoLoaderView">
-        <item name="loop_stroke_width">5dp</item>
-        <item name="loop_color">#F7F7F7</item>
-        <item name="dot_radius">3dp</item>
-        <item name="dot_color">#FF6E73</item>
+        <item name="loop_stroke_width">3dp</item>
+        <item name="loop_color">#f7f7f7</item>
+        <item name="dot_radius">1.5dp</item>
+        <item name="left_dot_color">#FF5A4B</item>
+        <item name="right_dot_color">#FF6E73</item>
         <item name="highlight_color">#20FFFFFF</item>
         <item name="highlight_angle">45</item>
-        <item name="duration">2000</item>
+        <item name="duration">1500</item>
     </style>
 </resources>
