@@ -1,7 +1,8 @@
 # LogoLoaderView
 加载动画效果
 效果图,ps:图中不流畅效果是因为录制GIF工具的帧数限制所致
-![github](https://github.com/oneAcorn/LogoLoaderView/blob/master/20190829_101138.gif)
+![github](https://github.com/oneAcorn/LogoLoaderView/blob/master/20190906_130134.gif)
+######### (图标如有侵权,请联系我删除)
 
 使用方法
 ``` xml
