@@ -16,10 +16,10 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:highlight_height="10dp"
-            app:highlight_width="45dp"
-            app:logo_drawable="@drawable/success"
-            app:dot_radius="2dp"
+            app:highlight_height="8dp"
+            app:highlight_width="36dp"
+            app:logo_drawable="@mipmap/alipay"
+            app:dot_radius="3dp"
             app:duration="2000"
             />
 

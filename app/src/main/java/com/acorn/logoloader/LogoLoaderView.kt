@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.LinearInterpolator
 import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator
 import com.acorn.logoloader.typeEvaluator.LogoAnimEvaluator.LogoAnimEntry
 import com.acorn.logoloader.utils.getPositionByAngle
@@ -232,7 +233,7 @@ class LogoLoaderView : View {
                 )
             ).apply {
                 setEvaluator(LogoAnimEvaluator())
-//        logoAnim?.interpolator=LinearInterpolator()
+                logoAnim?.interpolator = LinearInterpolator()
                 duration = this@LogoLoaderView.duration
                 repeatCount = ValueAnimator.INFINITE
 //        logoAnim.repeatMode
